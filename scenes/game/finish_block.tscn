@@ -1,0 +1,102 @@
+[gd_scene load_steps=10 format=3 uid="uid://begoq5cfc1u3a"]
+
+[ext_resource type="Script" path="res://scripts/finish_block.gd" id="1_6yhhv"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_mie5x"]
+polygon = PackedVector2Array(48, 7, 48, 15, -48, 15, -48, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mbesw"]
+size = Vector2(72, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8wc7f"]
+size = Vector2(72, 7)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_oavcl"]
+polygon = PackedVector2Array(-36, 0, 36, 0, 36, 7, -36, 7)
+
+[sub_resource type="Animation" id="Animation_6rrk7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatableBody2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_imkc2"]
+resource_name = "button_down"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatableBody2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 7)]
+}
+
+[sub_resource type="Animation" id="Animation_dn06f"]
+resource_name = "button_up"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatableBody2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 7), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ng323"]
+_data = {
+"RESET": SubResource("Animation_6rrk7"),
+"button_down": SubResource("Animation_imkc2"),
+"button_up": SubResource("Animation_dn06f")
+}
+
+[node name="FinishBlock" type="StaticBody2D"]
+script = ExtResource("1_6yhhv")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-48, 7, 48, 7, 48, 15, -48, 15)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_mie5x")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_mbesw")
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D"]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_8wc7f")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="AnimatableBody2D"]
+occluder = SubResource("OccluderPolygon2D_oavcl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ng323")
+}
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

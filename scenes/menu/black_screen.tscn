@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://xt2oa6se6tcm"]
+
+[sub_resource type="Gradient" id="Gradient_ahn6j"]
+offsets = PackedFloat32Array(0, 0.988604)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rr6q1"]
+gradient = SubResource("Gradient_ahn6j")
+width = 1280
+height = 720
+
+[sub_resource type="Animation" id="Animation_kjp62"]
+resource_name = "fade_in"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_a0eg4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2lvsm"]
+_data = {
+"RESET": SubResource("Animation_a0eg4"),
+"fade_in": SubResource("Animation_kjp62")
+}
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = SubResource("GradientTexture2D_rr6q1")
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2lvsm")
+}
+autoplay = "fade_in"

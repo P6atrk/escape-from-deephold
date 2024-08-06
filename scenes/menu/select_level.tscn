@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://bb2uqvaoqmmhp"]
+
+[ext_resource type="PackedScene" uid="uid://nwkrdpxyi24c" path="res://scenes/menu/menu_label.tscn" id="1_u0dis"]
+
+[node name="SelectLevel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SelectLevelLabel" parent="." instance=ExtResource("1_u0dis")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -95.0
+offset_right = 95.0
+offset_bottom = 33.0
+grow_horizontal = 2
+text = "SELECT LEVEL"

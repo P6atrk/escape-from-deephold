@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dq1occgoug1j"]
+
+[ext_resource type="Theme" uid="uid://bpo1clkk5v8f" path="res://misc/theme.tres" id="1_58ei2"]
+[ext_resource type="Script" path="res://scripts/menu_button.gd" id="1_dnnvf"]
+
+[node name="MenuButton" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+theme = ExtResource("1_58ei2")
+script = ExtResource("1_dnnvf")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

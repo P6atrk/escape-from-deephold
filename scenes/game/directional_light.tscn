@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://bdlq67ybgpb0c"]
+
+[node name="DirectionalLight" type="DirectionalLight2D"]
+blend_mode = 1

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://nwkrdpxyi24c"]
+
+[ext_resource type="Theme" uid="uid://bpo1clkk5v8f" path="res://misc/theme.tres" id="1_6q7jm"]
+
+[node name="Label" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("1_6q7jm")
+horizontal_alignment = 1
+vertical_alignment = 1

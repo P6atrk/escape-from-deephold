@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://bdose6sgrqe5m"]
+
+[ext_resource type="Script" path="res://scripts/moving_platform.gd" id="1_yyls7"]
+[ext_resource type="PackedScene" uid="uid://bbmvg75l7s45f" path="res://scenes/platform.tscn" id="2_onquj"]
+
+[sub_resource type="Animation" id="Animation_gfypu"]
+resource_name = "move"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1.55, 1.55),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_4i36g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qfqw4"]
+_data = {
+"RESET": SubResource("Animation_4i36g"),
+"move": SubResource("Animation_gfypu")
+}
+
+[node name="MovingPlatform" type="Path2D"]
+script = ExtResource("1_yyls7")
+
+[node name="Platform" parent="." instance=ExtResource("2_onquj")]
+
+[node name="PathFollow" type="PathFollow2D" parent="."]
+rotates = false
+
+[node name="RemoteTransform" type="RemoteTransform2D" parent="PathFollow"]
+remote_path = NodePath("../../Platform")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qfqw4")
+}
